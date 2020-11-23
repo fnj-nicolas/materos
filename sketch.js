@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'inicio';
+let estado = 'pantalla12';
 let fondos;
 let timer = 0;
 
@@ -43,6 +43,29 @@ function setup() {
     timer = 0;
   }
 
+  btnAmigo = new Clickable();
+  btnAmigo.locate(width/2-100,(height/2)+70);
+  btnAmigo.onPress = function (){
+    estado = "pantalla9";
+  }
+
+  btnGuitarra2 = new Clickable();
+  btnGuitarra2.locate(width-200,50);
+  btnGuitarra2.onPress = function(){
+    estado = "pantalla11";
+  }
+
+  btnCorriendo = new Clickable();
+  btnCorriendo.locate(width-100,height/2-50);
+  btnCorriendo.onPress = function(){
+    estado = "pantalla13";
+  }
+
+  btnGuitarra3 = new Clickable();
+  btnGuitarra3.locate(90,height/2+150);
+  btnGuitarra3.onPress = function(){
+    estado = "pantalla15"
+  }
 }
 
 function preload(){
@@ -60,6 +83,17 @@ function preload(){
   altillo = loadImage('fondo/altillo.png');
   encuentraGuitarra = loadImage('fondo/encuentraGuitarra.png');
   celularDecision = loadImage('fondo/celularDecision.png');
+
+  juanAmigoGuitarra = loadImage('fondo/juanAmigoGuitarra.png');
+
+  elegirGuitarra_Fiesta = loadImage('fondo/elegirGuitarra_Fiesta.png');
+
+  juanGuitarraCampo = loadImage('fondo/juanGuitarraCampo.png');
+
+  correreleccion = loadImage('fondo/correreleccion.png');
+  conQueTocar = loadImage('fondo/conQueTocar.png');
+
+  tocarSinAmpli = loadImage('fondo/tocarSinAmpli.png');
 }
 
 function draw() {
@@ -141,6 +175,7 @@ function draw() {
     }else if (timer >= 3 && timer <= 5){
       image(anim_escaparHermana2,0,0,800,600);
     }else if (timer >= 5 && timer <= 6){
+      timer = 0;
       estado = "pantalla6";
     }
   }
@@ -169,7 +204,58 @@ function draw() {
   }
   if(estado == "pantalla8"){
     image(celularDecision,0,0,800,600);
+    btnAmigo.draw();
+  }
+  if(estado ==  "pantalla9"){
+    image(juanAmigoGuitarra,0,0,800,600);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 2){
+      estado = "pantalla10";
+    }
+  }
+  if(estado == "pantalla10"){
+    image(elegirGuitarra_Fiesta,0,0,800,600);
+    btnGuitarra2.draw();
+  }
+  if(estado == "pantalla11"){
+    image(juanGuitarraCampo,0,0,800,600);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 2){
+      estado = "pantalla12";
+    }
+  }
+  if(estado == "pantalla12"){
+    image(correreleccion,0,0,800,600);
+    btnCorriendo.draw();
+  }
+  if(estado == "pantalla13"){
+    textSize(64);
+    text('Juan cortando pasto', width/2, height/2);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 2){
+      estado = "pantalla14";
+    }
+  }
+  if(estado == "pantalla14"){
+    image(conQueTocar,0,0,800,600);
+    btnGuitarra3.draw();
+  }
+  if(estado == "pantalla15"){
+    image(tocarSinAmpli,0,0,800,600);
   }
 }
 
-
+//      textSize(64);
+//      text('Juan cortando pasto', width/2, height/2);
