@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'pantalla6';
+let estado = 'inicio';
 let fondos;
 let timer = 0;
 
@@ -57,7 +57,7 @@ function preload(){
   anim_escaparHermana1 = loadImage('fondo/anim_escaparHermana1.png');
   anim_escaparHermana2 = loadImage('fondo/anim_escaparHermana2.png');
 
-  altillo = loadImage('fondo/altillo.jpeg');
+  altillo = loadImage('fondo/altillo.png');
   encuentraGuitarra = loadImage('fondo/encuentraGuitarra.png');
   celularDecision = loadImage('fondo/celularDecision.png');
 }
