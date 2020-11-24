@@ -43,7 +43,9 @@ function setup() {
 
   btnVolverJugar = new Clickable();
   btnVolverJugar.onPress = function(){
-    estado = "inicio";
+      estado = "inicio";
+      timer = 0;
+    
   }
 
   timerHermana = new Clickable();
@@ -171,6 +173,7 @@ function preload(){
 
 function draw() {
   if (estado== "inicio"){
+    
     image(inicio,0,0,800,600);
     btnIniciar.draw();
   }
@@ -180,18 +183,26 @@ function draw() {
       print(timer);//if it is, do something
       time = millis();//also update the stored time
     }
-    print(timer)
+    
     if(timer >= 1 && timer <= 3){
-      image(concurso01,0,0,800,600);
+      image(creditos_final,0,0,800,600);
+      
     }else if (timer >= 3 && timer <= 5){
-      image(pensando02,0,0,800,600);
+      image(concurso01,0,0,800,600);
+      
     }
     else if (timer >= 5 && timer <= 7){
-      image(vecino03,0,0,800,600);
+      image(pensando02,0,0,800,600);
+      
     }
-    else if (timer >= 7){
+    else if (timer >= 7 && timer <= 10){
+      image(vecino03,0,0,800,600);
+
+    }
+    else if (timer >= 10){
       estado = "pantalla2";
       timer = 0;
+
     }
   }
   if (estado == 'pantalla2'){
@@ -204,6 +215,7 @@ function draw() {
     
     btnVolverJugar.locate(width/2,height/2);
     btnVolverJugar.draw();
+    timer = 0;
   }
   if (estado == 'pantalla3'){
     if (millis() - time >= wait) {
@@ -255,6 +267,7 @@ function draw() {
     image(perderHermana2,0,0,800,600);
     btnVolverJugar.locate(width/2,height/2+100);
     btnVolverJugar.draw();
+    timer = 0 ;
   }
   if(estado == "pantalla5"){
     if (millis() - time >= wait) {
@@ -322,7 +335,7 @@ function draw() {
     image(profesorNoViene,0,0,800,600);
     btnVolverJugar.locate(width/2,height/2);
     btnVolverJugar.draw();
-
+    timer = 0;
   }
   if(estado ==  "pantalla9"){
     image(juanAmigoGuitarra,0,0,800,600);
@@ -346,7 +359,7 @@ function draw() {
     image(fiesta_img,0,0,800,600);
     btnVolverJugar.locate(width/2,height/2);
     btnVolverJugar.draw();
-
+    timer = 0;
   }
 
   if(estado == "pantalla11"){     ////////////////////
@@ -370,6 +383,7 @@ function draw() {
     image(juanMicro,0,0,800,600);
     btnVolverJugar.locate(width/2,height-200);
     btnVolverJugar.draw();
+    timer = 0;
   }
 
   if(estado == "pantalla13"){
@@ -396,6 +410,7 @@ function draw() {
     image(perdisteGuitarra,0,0,800,600);
     btnVolverJugar.locate(width/2,height-100);
     btnVolverJugar.draw();
+    timer = 0;
   }
 
   if(estado == "pedisteContraRicky"){
@@ -417,6 +432,7 @@ function draw() {
     image(rickyGana,0,0,800,600);
     btnVolverJugar.locate(width/2, height-100);
     btnVolverJugar.draw();
+    timer = 0;
   }
 
   if(estado == "pantalla15"){
