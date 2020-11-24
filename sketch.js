@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'pantalla12';
+let estado = 'pantalla14';
 let fondos;
 let timer = 0;
 
@@ -62,7 +62,7 @@ function setup() {
   btnGuitarra = new Clickable();
   btnGuitarra.locate(width/2-300,height/2);
   btnGuitarra.onPress = function(){
-    estado = "pantalla7";
+    estado = "pantalla8";
     timer = 0;
   }
 
@@ -90,6 +90,7 @@ function setup() {
   btnCorriendo.locate(width-100,height/2-50);
   btnCorriendo.onPress = function(){
     estado = "pantalla13";
+    timer = 0;
   }
 
   btnBoliche = new Clickable();
@@ -108,7 +109,14 @@ function setup() {
   btnGuitarra3.locate(90,height/2+150);
   btnGuitarra3.text = 'holas gente';
   btnGuitarra3.onPress = function(){
-    estado = "pantalla15"
+    estado = "perdisteGuitarra"
+  }
+
+  btnAmpli = new Clickable();
+  btnAmpli.locate (width-200,height/2+150);
+  btnAmpli.onPress = function (){
+    timer = 0;
+    estado = "pedisteContraRicky";
   }
 }
 
@@ -144,7 +152,7 @@ function preload(){
 
   profesorNoViene = loadImage('fondo/profesorNoViene.png');
 
-  tocarSinAmpli = loadImage('fondo/tocarSinAmpli.png');
+  tocarConAmpli = loadImage('fondo/tocarConAmpli.png');
 
   final = loadImage('fondo/fin.png');
   marca_final = loadImage('fondo/marca_final.png');
@@ -154,6 +162,11 @@ function preload(){
   fiesta_img = loadImage('fondo/fiesta.png');
   perderMama1 = loadImage('fondo/perderMama1.png');
   perderHermana2 = loadImage('fondo/perderHermana2.png');
+
+  perdisteGuitarra = loadImage ('fondo/perdisteGuitarra.png');
+
+  rickyGana = loadImage ('fondo/fin.png');
+
 }
 
 function draw() {
@@ -375,8 +388,37 @@ function draw() {
   if(estado == "pantalla14"){
     image(conQueTocar,0,0,800,600);
     btnGuitarra3.draw();
+    btnAmpli.draw();
     
   }
+
+  if(estado == "perdisteGuitarra"){
+    image(perdisteGuitarra,0,0,800,600);
+    btnVolverJugar.locate(width/2,height-100);
+    btnVolverJugar.draw();
+  }
+
+  if(estado == "pedisteContraRicky"){
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    image(tocarConAmpli,0,0,800,600);
+
+    if(timer >= 3){
+      timer = 0;
+      estado = "rickyGana";
+    }
+
+  }
+
+  if(estado == "rickyGana"){
+    image(rickyGana,0,0,800,600);
+    btnVolverJugar.locate(width/2, height-100);
+    btnVolverJugar.draw();
+  }
+
   if(estado == "pantalla15"){
     if (millis() - time >= wait) {
       timer++;
