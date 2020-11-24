@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'pantalla14';
+let estado = 'inicio';
 let fondos;
 let timer = 0;
 
@@ -62,7 +62,7 @@ function setup() {
   btnGuitarra = new Clickable();
   btnGuitarra.locate(width/2-300,height/2);
   btnGuitarra.onPress = function(){
-    estado = "pantalla8";
+    estado = "pantalla7";
     timer = 0;
   }
 
