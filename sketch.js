@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'inicio';
+let estado = 'pantalla12';
 let fondos;
 let timer = 0;
 
@@ -31,7 +31,8 @@ function setup() {
   btnCortina = new Clickable();
   btnCortina.locate(10,height/2+100)
   btnCortina.onPress = function(){
-    estado = 'perderHermana';
+    timer = 0;
+    estado = 'hermanaMeEncuentra';
   }
 
   btnBilletera = new Clickable();
@@ -51,6 +52,7 @@ function setup() {
   btnArmario = new Clickable();
   btnArmario.locate(width/2-150,height/2);
   btnArmario.onPress = function(){
+    timer=0;
     estado = "pantalla5";
   }
 
@@ -67,7 +69,15 @@ function setup() {
   btnAmigo = new Clickable();
   btnAmigo.locate(width/2-100,(height/2)+70);
   btnAmigo.onPress = function (){
+    timer = 0;
     estado = "pantalla9";
+  }
+
+  btnChrome = new Clickable();
+  btnChrome.locate(width/2+40,(height/2)+70);
+  btnChrome.onPress = function (){
+    timer = 0;
+    estado = 'perderProfesor';
   }
 
   btnGuitarra2 = new Clickable();
@@ -80,6 +90,18 @@ function setup() {
   btnCorriendo.locate(width-100,height/2-50);
   btnCorriendo.onPress = function(){
     estado = "pantalla13";
+  }
+
+  btnBoliche = new Clickable();
+  btnBoliche.locate(90,150);
+  btnBoliche.onPress = function(){
+    estado = "perderFiesta";
+  }
+
+  btnMicro = new Clickable();
+  btnMicro.locate(100,200);
+  btnMicro.onPress = function(){
+    estado ="perderMicro";
   }
 
   btnGuitarra3 = new Clickable();
@@ -101,6 +123,9 @@ function preload(){
   ani_hermana2 = loadImage('fondo/hermana2.png');
   pantalla04 = loadImage('fondo/pantalla04.png');
 
+  hermanaMeEncuentra_img = loadImage('fondo/hermanMeEcuentra.png');
+
+  juanCortandoPasto = loadImage('fondo/pasto-01.png');
   anim_escaparHermana1 = loadImage('fondo/anim_escaparHermana1.png');
   anim_escaparHermana2 = loadImage('fondo/anim_escaparHermana2.png');
 
@@ -117,12 +142,16 @@ function preload(){
   correreleccion = loadImage('fondo/correreleccion.png');
   conQueTocar = loadImage('fondo/conQueTocar.png');
 
+  profesorNoViene = loadImage('fondo/profesorNoViene.png');
+
   tocarSinAmpli = loadImage('fondo/tocarSinAmpli.png');
 
   final = loadImage('fondo/fin.png');
   marca_final = loadImage('fondo/marca_final.png');
   creditos_final = loadImage('fondo/creditos_final.png');
-
+  juanCorriendo = loadImage ('fondo/juanCorriendo.png');
+  juanMicro = loadImage ('fondo/juanMicro.png'),
+  fiesta_img = loadImage('fondo/fiesta.png');
   perderMama1 = loadImage('fondo/perderMama1.png');
   perderHermana2 = loadImage('fondo/perderHermana2.png');
 }
@@ -171,8 +200,7 @@ function draw() {
     }
     print(timer)
     if(timer >= 1 && timer <= 3){
-      textSize(64);
-      text('Juan cortando pasto', width/2, height/2);
+      image(juanCortandoPasto,0,0,800,600);
     }else if (timer >= 1 && timer <= 3){
       image(ani_hermana1,0,0,800,600);
     }
@@ -201,6 +229,7 @@ function draw() {
     tiempo = tiempo - timer;
     if(tiempo <= 0){
       estado = "perderHermana";
+      timer = 0;
     }
     image(pantalla04,0,0,800,600); 
     timerHermana.draw();
@@ -223,9 +252,9 @@ function draw() {
     print(timer)
     if(timer >= 1 && timer <= 3){
       image(anim_escaparHermana1,0,0,800,600);
-    }else if (timer >= 3 && timer <= 5){
+    }else if (timer >= 3 && timer <= 6){
       image(anim_escaparHermana2,0,0,800,600);
-    }else if (timer >= 5 && timer <= 6){
+    }else if (timer >= 6 && timer <= 7){
       timer = 0;
       estado = "pantalla6";
     }
@@ -248,6 +277,17 @@ function draw() {
     timerAltillo.text = tiempo;
     btnGuitarra.draw();
   }
+  if(estado == "hermanaMeEncuentra"){
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    image(hermanaMeEncuentra_img,0,0,800,600);
+    if(timer >= 3){
+      estado = "perderHermana";
+    }
+  }
   if(estado == "pantalla7"){
     print("pantalla7");
     if (millis() - time >= wait) {
@@ -263,6 +303,13 @@ function draw() {
   if(estado == "pantalla8"){
     image(celularDecision,0,0,800,600);
     btnAmigo.draw();
+    btnChrome.draw();
+  }
+  if(estado == "perderProfesor"){
+    image(profesorNoViene,0,0,800,600);
+    btnVolverJugar.locate(width/2,height/2);
+    btnVolverJugar.draw();
+
   }
   if(estado ==  "pantalla9"){
     image(juanAmigoGuitarra,0,0,800,600);
@@ -279,7 +326,16 @@ function draw() {
   if(estado == "pantalla10"){
     image(elegirGuitarra_Fiesta,0,0,800,600);
     btnGuitarra2.draw();
+    btnBoliche.draw();
   }
+  
+  if(estado == "perderFiesta"){
+    image(fiesta_img,0,0,800,600);
+    btnVolverJugar.locate(width/2,height/2);
+    btnVolverJugar.draw();
+
+  }
+
   if(estado == "pantalla11"){     ////////////////////
     image(juanGuitarraCampo,0,0,800,600);
     if (millis() - time >= wait) {
@@ -294,22 +350,32 @@ function draw() {
   if(estado == "pantalla12"){
     image(correreleccion,0,0,800,600);
     btnCorriendo.draw();
+    btnMicro.draw();
   }
+
+  if(estado == "perderMicro"){
+    image(juanMicro,0,0,800,600);
+    btnVolverJugar.locate(width/2,height-200);
+    btnVolverJugar.draw();
+  }
+
   if(estado == "pantalla13"){
-    textSize(64);
-    text('Juan cortando pasto', width/2, height/2);
+
+    image(juanCorriendo,0,0,800,600);
+    
     if (millis() - time >= wait) {
       timer++;
       print(timer);//if it is, do something
       time = millis();//also update the stored time
     }
-    if(timer >= 2){
+    if(timer >= 3){
       estado = "pantalla14";
     }
   }
   if(estado == "pantalla14"){
     image(conQueTocar,0,0,800,600);
     btnGuitarra3.draw();
+    
   }
   if(estado == "pantalla15"){
     if (millis() - time >= wait) {
