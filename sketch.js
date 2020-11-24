@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'pantalla6';
+let estado = 'inicio';
 let fondos;
 let timer = 0;
 
