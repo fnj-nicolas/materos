@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'pantalla4';
+let estado = 'inicio';
 let fondos;
 let timer = 0;
 let songGuitarra;
@@ -229,6 +229,8 @@ function preload(){
   juanCorriendo = loadImage ('fondo/juanCorriendo.png');
   juanMicro = loadImage ('fondo/juanMicro.png'),
   fiesta_img = loadImage('fondo/fiesta.png');
+  juanafterfiesta = loadImage('fondo/juanafterfiesta.png');
+  juanafterfiesta2 = loadImage('fondo/juanafterfiesta2.png');
   perderMama1 = loadImage('fondo/perderMama1.png');
   perderHermana2 = loadImage('fondo/perderHermana2.png');
 
@@ -480,8 +482,34 @@ function draw() {
     btnBoliche.draw();
   }
   
+
+  //FIESTA
   if(estado == "perderFiesta"){
     image(fiesta_img,0,0,800,600);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 3){
+      timer = 0;
+      estado = "fiesta2";
+    }
+  }
+  if(estado == "fiesta2"){
+    image(juanafterfiesta,0,0,800,600);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 3){
+      timer = 0;
+      estado = "fiesta3";
+    }
+  }
+  if(estado == "fiesta3"){
+    image(juanafterfiesta2,0,0,800,600);
     btnVolverJugar.locate(width/2-105,height/2+170);
     btnVolverJugar.color="rgba(0,0,0,0)";
     btnVolverJugar.strokeWeight=0;
@@ -490,6 +518,7 @@ function draw() {
     btnVolverJugar.draw();
     timer = 0;
   }
+  
 
   if(estado == "pantalla11"){     ////////////////////
     image(juanGuitarraCampo,0,0,800,600);
