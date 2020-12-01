@@ -1,5 +1,5 @@
 var canvas;
-let estado = 'inicio';
+let estado = 'pantalla13';
 let fondos;
 let timer = 0;
 let songGuitarra;
@@ -576,7 +576,7 @@ function draw() {
 
   if(estado == "perdisteGuitarra"){
     image(perdisteGuitarra,0,0,800,600);
-    btnVolverJugar.locate(width/2-105,height-130);
+    btnVolverJugar.locate(width/2-105,height-200);
     btnVolverJugar.draw();
     btnVolverJugar.resize(210,60);
     btnVolverJugar.text='  ';
