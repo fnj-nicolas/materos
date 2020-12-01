@@ -129,8 +129,8 @@ function setup() {
   }
 
   btnCorriendo = new Clickable();
-  btnCorriendo.locate(width-100,height/2-120);
-  btnCorriendo.resize(60,180)
+  btnCorriendo.locate(width-170,90);
+  btnCorriendo.resize(140,200)
   btnCorriendo.color="rgba(0,0,0,0)";
   btnCorriendo.text='';
   btnCorriendo.strokeWeight=0;
@@ -150,9 +150,9 @@ function setup() {
   }
 
   btnMicro = new Clickable();
-  btnMicro.locate(15,130);
+  btnMicro.locate(10,10);
   btnMicro.text = ' ';
-  btnMicro.resize(250,120);
+  btnMicro.resize(380,230);
   btnMicro.color= "rgba(0,0,0,0)";
   btnMicro.strokeWeight=0;
   btnMicro.onPress = function(){
@@ -194,6 +194,7 @@ function preload(){
   ani_hermana1 = loadImage('fondo/hermana1.png');
   ani_hermana2 = loadImage('fondo/hermana2.png');
   pantalla04 = loadImage('fondo/pantalla04.png');
+  needmoney = loadImage('fondo/needMoney.png');
 
   hermanaMeEncuentra_img = loadImage('fondo/hermanMeEcuentra.png');
 
@@ -212,7 +213,7 @@ function preload(){
 
   juanGuitarraCampo = loadImage('fondo/juanGuitarraCampo.png');
 
-  correreleccion = loadImage('fondo/correreleccion.png');
+  correreleccion = loadImage('fondo/panallitas-14.png');
   conQueTocar = loadImage('fondo/conQueTocar.png');
 
   profesorNoViene = loadImage('fondo/profesor1.png');
@@ -265,10 +266,14 @@ function draw() {
       
     }
     else if (timer >= 7 && timer <= 10){
+      image(needmoney,0,0,800,600);
+      
+    }
+    else if (timer >= 10 && timer <= 13){
       image(vecino03,0,0,800,600);
 
     }
-    else if (timer >= 10){
+    else if (timer >= 13){
       estado = "pantalla2";
       timer = 0;
 
@@ -531,6 +536,7 @@ function draw() {
       estado = "pantalla12";
     }
   }
+
   if(estado == "pantalla12"){
     image(correreleccion,0,0,800,600);
     btnCorriendo.draw();
@@ -596,11 +602,12 @@ function draw() {
 
   if(estado == "rickyGana"){
     image(rickyGana,0,0,800,600);
-    btnVolverJugar.locate(width/2-105,height-130);
+    btnVolverJugar.locate(width/2-105,height-105);
     btnVolverJugar.resize(210,60);
     btnVolverJugar.text = ' ';
     btnVolverJugar.color="rgba(0,0,0,0)";
     btnVolverJugar.draw();
+    btnVolverJugar.strokeWeight=0;
     timer = 0;
     if(songGuitarra.isPlaying()){
       songGuitarra.stop();
