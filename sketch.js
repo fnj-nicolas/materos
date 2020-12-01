@@ -1,7 +1,10 @@
 var canvas;
-let estado = 'inicio';
+let estado = 'pantalla4';
 let fondos;
 let timer = 0;
+let songGuitarra;
+let songBullicio;
+let songJuan;//ver si la consigo
 
 let time = 0;
 let wait = 1000;
@@ -11,6 +14,10 @@ let timer1 = 0;
 function setup() {
   createCanvas(800, 600);
   
+  //MUSICA
+  songGuitarra=loadSound('musica/guitarramala.mp3');
+
+  //BOTONES
   btnIniciar = new Clickable();
   btnIniciar.locate(width/2-135, height/2+60);
   btnIniciar.color = "#66000000"; 
@@ -23,20 +30,33 @@ function setup() {
   }
 
   btnVecino = new Clickable();
-  btnVecino.locate(width/2-300,height/2);
+  btnVecino.locate(width/2-320,height/2+75);
+  btnVecino.resize(150,45);
+  //btnVecino.strokeWeight = 0;
+  btnVecino.text = '';
+  btnVecino.color= "rgba(0,0,0,0)";
+  btnVecino.strokeWeight=0;
   btnVecino.onPress = function(){
     estado = 'pantalla3';
   }
 
   btnCortina = new Clickable();
-  btnCortina.locate(10,height/2+100)
+  btnCortina.locate(0,height/2-100);
+  btnCortina.resize(75,300);
+  btnCortina.color= "rgba(0,0,0,0)";
+  btnCortina.strokeWeight=0;
+  btnCortina.text='';
   btnCortina.onPress = function(){
     timer = 0;
     estado = 'hermanaMeEncuentra';
   }
 
   btnBilletera = new Clickable();
-  btnBilletera.locate(width/2+300,height/2+200);
+  btnBilletera.locate(width/2+285,height/2+180);
+  btnBilletera.resize(90,95);
+  btnBilletera.strokeWeight = 0;
+  btnBilletera.text = '';
+  btnBilletera.color= "rgba(0,0,0,0)";
   btnBilletera.onPress = function(){
     estado = "perder1"
   }
@@ -52,7 +72,11 @@ function setup() {
   timerHermana.locate(width/2,0);
 
   btnArmario = new Clickable();
-  btnArmario.locate(width/2-150,height/2);
+  btnArmario.locate(width/2-170,height/2-150);
+  btnArmario.color = "rgba(0,0,0,0)";
+  btnArmario.text = '  ';
+  btnArmario.resize(150,320);
+  btnArmario.strokeWeight=0;
   btnArmario.onPress = function(){
     timer=0;
     estado = "pantalla5";
@@ -62,14 +86,22 @@ function setup() {
   timerAltillo.locate(width/2,0);
 
   btnGuitarra = new Clickable();
-  btnGuitarra.locate(width/2-300,height/2);
+  btnGuitarra.locate(width/2-280,height/2-30);
+  btnGuitarra.resize(25,150);
+  btnGuitarra.color = "rgba(0,0,0,0)";
+  btnGuitarra.text= ' ';
+  btnGuitarra.strokeWeight=0;
   btnGuitarra.onPress = function(){
     estado = "pantalla7";
     timer = 0;
   }
 
   btnAmigo = new Clickable();
-  btnAmigo.locate(width/2-100,(height/2)+70);
+  btnAmigo.locate(width/2-90,(height/2)+70);
+  btnAmigo.resize(50,50);
+  btnAmigo.color= "rgba(0,0,0,0)";
+  btnAmigo.strokeWeight=0;
+  btnAmigo.text='';
   btnAmigo.onPress = function (){
     timer = 0;
     estado = "pantalla9";
@@ -77,50 +109,80 @@ function setup() {
 
   btnChrome = new Clickable();
   btnChrome.locate(width/2+40,(height/2)+70);
+  btnChrome.resize(50,50);
+  btnChrome.color= "rgba(0,0,0,0)";
+  btnChrome.strokeWeight=0;
+  btnChrome.text='  ';
   btnChrome.onPress = function (){
     timer = 0;
     estado = 'perderProfesor';
   }
 
   btnGuitarra2 = new Clickable();
-  btnGuitarra2.locate(width-200,50);
+  btnGuitarra2.locate(width-240,30);
+  btnGuitarra2.resize(230,130);
+  btnGuitarra2.text='  ';
+  btnGuitarra2.color = "rgba(0,0,0,0)";
+  btnGuitarra2.strokeWeight=0;
   btnGuitarra2.onPress = function(){
     estado = "pantalla11";
   }
 
   btnCorriendo = new Clickable();
-  btnCorriendo.locate(width-100,height/2-50);
+  btnCorriendo.locate(width-100,height/2-120);
+  btnCorriendo.resize(60,180)
+  btnCorriendo.color="rgba(0,0,0,0)";
+  btnCorriendo.text='';
+  btnCorriendo.strokeWeight=0;
   btnCorriendo.onPress = function(){
     estado = "pantalla13";
     timer = 0;
   }
 
   btnBoliche = new Clickable();
-  btnBoliche.locate(90,150);
+  btnBoliche.locate(10,10);
+  btnBoliche.resize(300,180);
+  btnBoliche.text = ' ';
+  btnBoliche.color= "rgba(0,0,0,0)";
+  btnBoliche.strokeWeight=0;
   btnBoliche.onPress = function(){
     estado = "perderFiesta";
   }
 
   btnMicro = new Clickable();
-  btnMicro.locate(100,200);
+  btnMicro.locate(15,130);
+  btnMicro.text = ' ';
+  btnMicro.resize(250,120);
+  btnMicro.color= "rgba(0,0,0,0)";
+  btnMicro.strokeWeight=0;
   btnMicro.onPress = function(){
     estado ="perderMicro";
   }
 
   btnGuitarra3 = new Clickable();
-  btnGuitarra3.locate(90,height/2+150);
-  btnGuitarra3.text = 'holas gente';
+  btnGuitarra3.locate(70,height/2+50);
+  btnGuitarra3.color="rgba(0,0,0,0)";
+  btnGuitarra3.resize(80,200);
+  btnGuitarra3.text = ' ';
+  btnGuitarra3.strokeWeight=0;
   btnGuitarra3.onPress = function(){
     estado = "perdisteGuitarra"
   }
 
   btnAmpli = new Clickable();
-  btnAmpli.locate (width-200,height/2+150);
+  btnAmpli.locate (width-250,height/2+30);
+  btnAmpli.color="rgba(0,0,0,0)";
+  btnAmpli.resize(200,210);
+  btnAmpli.strokeWeight=0;
+  btnAmpli.text=' ';
   btnAmpli.onPress = function (){
     timer = 0;
     estado = "pedisteContraRicky";
   }
 }
+
+//ACA TERMINA EL SET UP
+
 
 function preload(){
   inicio =  loadImage ('fondo/inicio.png');
@@ -142,6 +204,7 @@ function preload(){
   altillo = loadImage('fondo/altillo.png');
   encuentraGuitarra = loadImage('fondo/encuentraGuitarra.png');
   celularDecision = loadImage('fondo/celularDecision.png');
+  hnaAltillo= loadImage('fondo/hermanaAltillo.png');
 
   juanAmigoGuitarra = loadImage('fondo/juanAmigoGuitarra.png');
 
@@ -152,9 +215,13 @@ function preload(){
   correreleccion = loadImage('fondo/correreleccion.png');
   conQueTocar = loadImage('fondo/conQueTocar.png');
 
-  profesorNoViene = loadImage('fondo/profesorNoViene.png');
+  profesorNoViene = loadImage('fondo/profesor1.png');
+  profesorNoViene2 = loadImage('fondo/profesor2.png');
+  profesorNoViene3 = loadImage('fondo/profesorNoViene.png');
 
   tocarConAmpli = loadImage('fondo/tocarConAmpli.png');
+
+  juanNoSeEsconde = loadImage('fondo/juanNoSeEsconde.png');
 
   final = loadImage('fondo/fin.png');
   marca_final = loadImage('fondo/marca_final.png');
@@ -213,7 +280,11 @@ function draw() {
   if(estado == "perder1"){
     image(perderMama1,0,0,800,600);
     
-    btnVolverJugar.locate(width/2,height/2);
+    btnVolverJugar.locate(width/2-105,height/2+175);
+    btnVolverJugar.resize(210,60);
+    btnVolverJugar.text='';
+    btnVolverJugar.strokeWeight= 0;
+    btnVolverJugar.color="rgba(0,0,0,0)";
     btnVolverJugar.draw();
     timer = 0;
   }
@@ -253,7 +324,7 @@ function draw() {
 
     tiempo = tiempo - timer;
     if(tiempo <= 0){
-      estado = "perderHermana";
+      estado = "juanNoSeEsconde";
       timer = 0;
     }
     image(pantalla04,0,0,800,600); 
@@ -261,11 +332,26 @@ function draw() {
     btnCortina.draw();
     timerHermana.text = str(tiempo);
     btnArmario.draw();
-    btnArmario.text = "btnArmario";
+  }
+  if(estado == "juanNoSeEsconde"){
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    image(juanNoSeEsconde,0,0,800,600); 
+    if(timer >= 3){
+      estado = "perderHermana";
+      timer = 0;
+    }
   }
   if(estado =="perderHermana"){
     image(perderHermana2,0,0,800,600);
-    btnVolverJugar.locate(width/2,height/2+100);
+    btnVolverJugar.locate(width/2-100,height/2+190);
+    btnVolverJugar.resize(210,60);
+    btnVolverJugar.strokeWeight=0;
+    btnVolverJugar.text='';
+    btnVolverJugar.color="rgba(0,0,0,0)";
     btnVolverJugar.draw();
     timer = 0 ;
   }
@@ -280,28 +366,38 @@ function draw() {
       image(anim_escaparHermana1,0,0,800,600);
     }else if (timer >= 3 && timer <= 6){
       image(anim_escaparHermana2,0,0,800,600);
-    }else if (timer >= 6 && timer <= 7){
-      timer = 0;
-      estado = "pantalla6";
+    }else if (timer >= 7 && timer <= 8){
+    timer = 0;
+    estado = "pantalla6";
     }
   }
   if(estado == "pantalla6"){
-    let tiempo = 9;
+    image(altillo,0,0,800,600);
+    let tiempo = 5;
     if (millis() - time >= wait) {
       timer++;
       print(timer);//if it is, do something
       time = millis();//also update the stored time
     }
-
     tiempo = tiempo - timer;
-    image(altillo,0,0,800,600);
-
     if(tiempo <= 0){
-      estado = "perderHermana";
+      estado = "hnaAltillo";
+      timer = 0;
     }
     timerAltillo.draw();
     timerAltillo.text = tiempo;
     btnGuitarra.draw();
+  }
+  if(estado == "hnaAltillo"){
+    image(hnaAltillo,0,0,800,600);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 4){
+      estado = "perderHermana";
+    }
   }
   if(estado == "hermanaMeEncuentra"){
     if (millis() - time >= wait) {
@@ -331,9 +427,38 @@ function draw() {
     btnAmigo.draw();
     btnChrome.draw();
   }
+
   if(estado == "perderProfesor"){
     image(profesorNoViene,0,0,800,600);
-    btnVolverJugar.locate(width/2,height/2);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 3){
+      timer = 0;
+      estado = "profesor2";
+    }
+  }
+  if(estado=="profesor2"){
+    image(profesorNoViene2,0,0,800,600);
+    if (millis() - time >= wait) {
+      timer++;
+      print(timer);//if it is, do something
+      time = millis();//also update the stored time
+    }
+    if(timer >= 3){
+      timer = 0;
+      estado = "profesor3";
+    }
+  }
+  if(estado=="profesor3"){
+    image(profesorNoViene3,0,0,800,600);
+    btnVolverJugar.locate(width/2-105,height/2+180);
+    btnVolverJugar.color="rgba(0,0,0,0)";
+    btnVolverJugar.strokeWeight=0;
+    btnVolverJugar.resize(210,60);
+    btnVolverJugar.text='  ';
     btnVolverJugar.draw();
     timer = 0;
   }
@@ -357,7 +482,11 @@ function draw() {
   
   if(estado == "perderFiesta"){
     image(fiesta_img,0,0,800,600);
-    btnVolverJugar.locate(width/2,height/2);
+    btnVolverJugar.locate(width/2-105,height/2+170);
+    btnVolverJugar.color="rgba(0,0,0,0)";
+    btnVolverJugar.strokeWeight=0;
+    btnVolverJugar.text='  ';
+    btnVolverJugar.resize(210,60);
     btnVolverJugar.draw();
     timer = 0;
   }
@@ -381,7 +510,11 @@ function draw() {
 
   if(estado == "perderMicro"){
     image(juanMicro,0,0,800,600);
-    btnVolverJugar.locate(width/2,height-200);
+    btnVolverJugar.locate(width/2-100,height-120);
+    btnVolverJugar.resize(210,60);
+    btnVolverJugar.color="rgba(0,0,0,0)";
+    btnVolverJugar.strokeWeight=0;
+    btnVolverJugar.text='  ';
     btnVolverJugar.draw();
     timer = 0;
   }
@@ -408,20 +541,24 @@ function draw() {
 
   if(estado == "perdisteGuitarra"){
     image(perdisteGuitarra,0,0,800,600);
-    btnVolverJugar.locate(width/2,height-100);
+    btnVolverJugar.locate(width/2-105,height-130);
     btnVolverJugar.draw();
+    btnVolverJugar.resize(210,60);
+    btnVolverJugar.text='  ';
+    btnVolverJugar.color="rgba(0,0,0,0)";
+    btnVolverJugar.strokeWeight=0;
     timer = 0;
   }
 
   if(estado == "pedisteContraRicky"){
+    //songGuitarra.play();
     if (millis() - time >= wait) {
       timer++;
       print(timer);//if it is, do something
       time = millis();//also update the stored time
     }
     image(tocarConAmpli,0,0,800,600);
-
-    if(timer >= 3){
+    if(timer >= 6){
       timer = 0;
       estado = "rickyGana";
     }
@@ -430,9 +567,15 @@ function draw() {
 
   if(estado == "rickyGana"){
     image(rickyGana,0,0,800,600);
-    btnVolverJugar.locate(width/2, height-100);
+    btnVolverJugar.locate(width/2-105,height-130);
+    btnVolverJugar.resize(210,60);
+    btnVolverJugar.text = ' ';
+    btnVolverJugar.color="rgba(0,0,0,0)";
     btnVolverJugar.draw();
     timer = 0;
+    if(songGuitarra.isPlaying()){
+      songGuitarra.stop();
+    }
   }
 
   if(estado == "pantalla15"){
